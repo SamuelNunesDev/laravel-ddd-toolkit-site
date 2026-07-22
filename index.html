@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Laravel DDD Toolkit — Domain-first Laravel architecture</title>
+    <meta
+      name="description"
+      content="Open source toolkit for structuring large, modular Laravel applications with tactical DDD and explicit architectural boundaries."
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main>
+      <header class="site-header">
+        <a class="brand" href="#home" aria-label="Laravel DDD — home">
+          <span class="brand-mark">L/</span>
+          <span>Laravel DDD</span>
+        </a>
+
+        <nav aria-label="Main navigation">
+          <a href="#architecture" data-i18n="nav.architecture">Architecture</a>
+          <a href="#docs" data-i18n="nav.docs">Docs</a>
+          <a href="#contribute" data-i18n="nav.contribute">Contribute</a>
+        </nav>
+
+        <div class="header-actions">
+          <a class="header-cta" href="#docs">
+            <span data-i18n="nav.start">Start</span>
+            <span>↗</span>
+          </a>
+          <button class="language-toggle" type="button" data-language-toggle aria-label="Trocar idioma para português">
+            <span class="flag" aria-hidden="true" data-flag>🇧🇷</span>
+            <span data-i18n="nav.language">Português</span>
+          </button>
+        </div>
+      </header>
+
+      <section class="hero" id="home">
+        <div class="hero-grid" aria-hidden="true"></div>
+
+        <div class="hero-copy">
+          <div class="eyebrow">
+            <span class="status-dot"></span>
+            <span data-i18n="hero.eyebrow">Open source · Ready for real projects</span>
+          </div>
+
+          <h1>
+            <span data-i18n="hero.titleA">Domain-first</span><br />
+            <span class="outline-title" data-i18n="hero.titleB">Laravel systems.</span>
+          </h1>
+
+          <p data-i18n="hero.text">
+            Laravel DDD Toolkit helps teams structure large, modular Laravel applications around explicit business
+            domains, clear use cases, ports and adapters.
+          </p>
+
+          <div class="hero-actions">
+            <a class="primary-button" href="#docs">
+              <span data-i18n="hero.primary">Start now</span>
+              <span>→</span>
+            </a>
+            <a class="text-button" href="#architecture">
+              <span class="play">▶</span>
+              <span data-i18n="hero.secondary">Understand the fit</span>
+            </a>
+          </div>
+
+          <div class="compatibility">
+            <span data-i18n="hero.designedFor">Designed for</span>
+            <span class="compat-item"><strong>Laravel</strong><i></i></span>
+            <span class="compat-item"><strong>PHP 8.2+</strong><i></i></span>
+            <span class="compat-item"><strong>Composer</strong><i></i></span>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-label="Domain module structure example">
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+
+          <div class="code-window">
+            <div class="window-bar">
+              <div class="window-dots"><span></span><span></span><span></span></div>
+              <span>app/Modules/Billing</span>
+              <span class="window-tag">PHP</span>
+            </div>
+
+            <div class="tree">
+              <p><b>▾</b> <strong>Billing/</strong></p>
+              <p class="depth-1"><b>▾</b> <span class="folder coral-text">Domain/</span></p>
+              <p class="depth-2"><b>▾</b> <span class="folder coral-text">Entities/</span></p>
+              <p class="depth-3"><span class="file-icon coral-text">◇</span> Invoice.php</p>
+              <p class="depth-1"><b>▾</b> <span class="folder violet-text">Application/</span></p>
+              <p class="depth-2"><b>▾</b> <span class="folder violet-text">UseCases/IssueInvoice/</span></p>
+              <p class="depth-3"><span class="file-icon violet-text">◇</span> IssueInvoiceHandler.php</p>
+              <p class="depth-2"><b>▾</b> <span class="folder violet-text">Ports/Out/</span></p>
+              <p class="depth-3"><span class="file-icon violet-text">◇</span> InvoiceRepository.php</p>
+              <p class="depth-1"><b>▾</b> <span class="folder">Infrastructure/</span></p>
+              <p class="depth-2"><b>▾</b> <span class="folder">Persistence/Adapters/</span></p>
+              <p class="depth-3"><span class="file-icon">◇</span> EloquentInvoiceRepository.php</p>
+              <p class="depth-2"><b>▾</b> <span class="folder lime-text">Http/Controllers/</span></p>
+              <p class="depth-3"><span class="file-icon lime-text">◇</span> InvoiceController.php</p>
+            </div>
+
+            <div class="window-footer">
+              <span data-i18n="visual.isolated">✓ isolated module</span>
+              <span data-i18n="visual.layers">hexagonal by default</span>
+            </div>
+          </div>
+
+          <div class="floating-note note-one">
+            <span>⌘</span>
+            <div>
+              <small data-i18n="visual.generated">Generated with</small>
+              <strong>make:module</strong>
+            </div>
+          </div>
+
+          <div class="floating-note note-two">
+            <span>✓</span>
+            <div>
+              <small data-i18n="visual.conventions">Hexagonal</small>
+              <strong data-i18n="visual.ready">ports + adapters</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="architecture section-shell" id="architecture">
+        <div class="section-heading">
+          <div>
+            <span class="section-kicker" data-i18n="architecture.kicker">01 · Positioning</span>
+            <h2>
+              <span data-i18n="architecture.titleA">A structure for</span><br />
+              <em data-i18n="architecture.titleB">serious Laravel apps.</em>
+            </h2>
+          </div>
+          <p data-i18n="architecture.text">
+            This is not a replacement for Laravel's default architecture. Laravel remains excellent for simple CRUD and
+            early-stage products. The toolkit shines when a system needs domain boundaries, stronger cohesion and
+            protection against accidental coupling.
+          </p>
+        </div>
+
+        <div class="architecture-panel">
+          <div class="layer-list">
+            <p class="dependency-note" data-i18n="architecture.dependencyNote">
+              Execution flows inward. Dependencies point inward.
+            </p>
+            <article class="layer coral">
+              <span>01</span>
+              <div>
+                <h3>Domain</h3>
+                <p data-i18n="architecture.layers.domain">Entities, value objects and business rules</p>
+              </div>
+            </article>
+            <article class="layer violet">
+              <span>02</span>
+              <div>
+                <h3>Application</h3>
+                <p data-i18n="architecture.layers.application">Use cases and inbound/outbound ports</p>
+              </div>
+            </article>
+            <article class="layer cyan">
+              <span>03</span>
+              <div>
+                <h3>Infrastructure</h3>
+                <p data-i18n="architecture.layers.infrastructure">Persistence adapters, Eloquent and integrations</p>
+              </div>
+            </article>
+            <article class="layer lime">
+              <span>04</span>
+              <div>
+                <h3>Infrastructure/Http</h3>
+                <p data-i18n="architecture.layers.http">Controllers and HTTP delivery concerns</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="domain-map" aria-label="Architecture diagram">
+            <span class="map-label label-top">Adapters</span>
+            <span class="map-label label-right">Ports</span>
+            <span class="map-label label-bottom">Use cases</span>
+            <div class="map-ring ring-outer">
+              <div class="map-ring ring-middle">
+                <div class="map-ring ring-inner">
+                  <strong>DOMAIN</strong>
+                  <small>pure PHP</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="benefit-grid">
+          <article>
+            <span>01</span>
+            <h3 data-i18n="benefits.0.title">Built for complexity</h3>
+            <p data-i18n="benefits.0.text">
+              Useful when controllers grow, generic services multiply, rules spread across the app and business modules
+              start depending on each other.
+            </p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3 data-i18n="benefits.1.title">Laravel stays Laravel</h3>
+            <p data-i18n="benefits.1.text">
+              You still use the service container, Eloquent, events, jobs and testing tools — but from the right
+              architectural edges.
+            </p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3 data-i18n="benefits.2.title">A better team language</h3>
+            <p data-i18n="benefits.2.text">
+              The structure makes discussions concrete: what is the module, the use case, the business rule, the port
+              and the adapter?
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="docs section-shell" id="docs">
+        <div class="section-heading docs-heading">
+          <div>
+            <span class="section-kicker" data-i18n="docs.kicker">02 · Getting started</span>
+            <h2>
+              <span data-i18n="docs.titleA">From Composer to your first</span><br />
+              <em data-i18n="docs.titleB">domain boundary.</em>
+            </h2>
+          </div>
+          <p data-i18n="docs.text">
+            Install the toolkit, publish its setup and use the Artisan commands to discover and generate the pieces
+            your application actually needs.
+          </p>
+        </div>
+
+        <div class="quickstart-grid">
+          <div class="terminal-card">
+            <div class="command-tabs" role="tablist" aria-label="Quick commands">
+              <button type="button" class="active" data-command-tab="install">Install</button>
+              <button type="button" data-command-tab="discover">Discover commands</button>
+              <button type="button" data-command-tab="scaffold">Module workflow</button>
+            </div>
+            <div class="terminal-top">
+              <span data-i18n="docs.terminal">Terminal</span>
+              <button class="copy-button" type="button" data-copy-command>Copy</button>
+            </div>
+            <pre><code data-command-output></code></pre>
+            <div class="terminal-success">
+              <span>✓</span>
+              <span data-i18n="docs.success">The toolkit adds structure without replacing the native Laravel workflow.</span>
+            </div>
+          </div>
+
+          <div class="steps-card">
+            <ol>
+              <li>
+                <span>1</span>
+                <div>
+                  <h3 data-i18n="steps.0.title">Install the package</h3>
+                  <p data-i18n="steps.0.text">
+                    Install the package from Packagist and check the GitHub repository for documentation and examples.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <span>2</span>
+                <div>
+                  <h3 data-i18n="steps.1.title">Prepare the project</h3>
+                  <p data-i18n="steps.1.text">
+                    Run the installer to publish configuration and align the initial folders with the selected
+                    architecture.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <span>3</span>
+                <div>
+                  <h3 data-i18n="steps.2.title">Create intentionally</h3>
+                  <p data-i18n="steps.2.text">
+                    Generate modules and use cases only when the application has real business boundaries to protect.
+                  </p>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="commands-table">
+          <div class="table-head">
+            <span data-i18n="commands.head.command">Command</span>
+            <span data-i18n="commands.head.purpose">Purpose</span>
+            <span data-i18n="commands.head.state">State</span>
+          </div>
+          <div>
+            <code>ddd:install</code>
+            <p data-i18n="commands.install">Publishes configuration and prepares the Laravel project for domain-oriented structure.</p>
+            <span class="ready" data-i18n="commands.ready">Ready</span>
+          </div>
+          <div>
+            <code>make:module {name}</code>
+            <p data-i18n="commands.module">Creates a vertical module with hexagonal structure by default.</p>
+            <span class="ready" data-i18n="commands.ready">Ready</span>
+          </div>
+          <div>
+            <code>make:port {module} {name} --type=out</code>
+            <p data-i18n="commands.port">Creates an outbound application port such as OrderRepository.</p>
+            <span class="ready" data-i18n="commands.ready">Ready</span>
+          </div>
+          <div>
+            <code>make:adapter {module} {name} --port={port} --type=persistence</code>
+            <p data-i18n="commands.adapter">Creates an infrastructure adapter that implements a port.</p>
+            <span class="ready" data-i18n="commands.ready">Ready</span>
+          </div>
+          <div>
+            <code>make:repository {module} {name}</code>
+            <p data-i18n="commands.repository">Generates an infrastructure repository only when enabled in config or forced.</p>
+            <span class="planned" data-i18n="commands.optIn">Opt-in</span>
+          </div>
+        </div>
+
+        <div class="use-case">
+          <div class="use-case-copy">
+            <span class="section-kicker" data-i18n="sample.kicker">Usage example</span>
+            <h3 data-i18n="sample.title">A use case that speaks the language of the domain.</h3>
+            <p data-i18n="sample.text">Controllers coordinate input. The use case executes the intention. The domain protects the rule.</p>
+            <div class="flow">
+              <span>HTTP Request</span><b>→</b><span>IssueInvoice</span><b>→</b><span>Invoice</span>
+            </div>
+          </div>
+
+          <div class="code-sample">
+            <div class="terminal-top">
+              <span>IssueInvoice.php</span>
+              <button class="copy-button" type="button" data-copy-sample>Copy</button>
+            </div>
+            <pre><code data-sample-code></code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="contribute section-shell" id="contribute">
+        <div>
+          <span class="section-kicker" data-i18n="contribute.kicker">03 · Community</span>
+          <h2>
+            <span data-i18n="contribute.titleA">Help mature the toolkit</span><br />
+            <em data-i18n="contribute.titleB">with real Laravel pressure.</em>
+          </h2>
+          <p data-i18n="contribute.text">
+            Contributions are especially valuable around documentation, release readiness, dependency hygiene,
+            architectural checks and examples extracted from long-lived applications.
+          </p>
+        </div>
+        <div class="contribute-actions">
+          <a class="primary-button" href="#docs">
+            <span data-i18n="contribute.docs">Explore the docs</span>
+            <span>→</span>
+          </a>
+          <a class="outline-button" href="https://github.com/SamuelNunesDev/laravel-ddd-toolkit" target="_blank" rel="noreferrer">
+            <span data-i18n="contribute.repo">Open repository</span>
+          </a>
+        </div>
+      </section>
+
+      <footer>
+        <a class="brand" href="#home"><span class="brand-mark">L/</span><span>Laravel DDD</span></a>
+        <p data-i18n="footer">Explicit architecture for Laravel applications that need to keep evolving.</p>
+        <span>Open source · 2026</span>
+      </footer>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
