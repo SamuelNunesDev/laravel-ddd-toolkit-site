@@ -1,0 +1,834 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Docs — Laravel DDD Toolkit</title>
+    <meta
+      name="description"
+      content="Complete documentation for Laravel DDD Toolkit concepts, folders, commands and examples."
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main>
+      <header class="site-header docs-site-header">
+        <a class="brand" href="./index.html#home" aria-label="Laravel DDD — home">
+          <span class="brand-mark">L/</span>
+          <span>Laravel DDD</span>
+        </a>
+
+        <nav aria-label="Main navigation">
+          <a href="./index.html#learn" data-i18n="nav.learn">For Laravel Developers</a>
+          <a href="./index.html#architecture" data-i18n="nav.architecture">Architecture</a>
+          <a href="./docs.html" data-i18n="nav.docs">Docs</a>
+          <a href="./index.html#contribute" data-i18n="nav.contribute">Contribute</a>
+        </nav>
+
+        <div class="header-actions">
+          <a class="header-cta" href="./index.html#docs">
+            <span data-i18n="nav.start">Start</span>
+            <span>↗</span>
+          </a>
+          <button class="language-toggle" type="button" data-language-toggle aria-label="Trocar idioma para português">
+            <span class="flag" aria-hidden="true" data-flag>🇧🇷</span>
+            <span data-i18n="nav.language">Português</span>
+          </button>
+        </div>
+      </header>
+
+      <section class="doc-hero section-shell">
+        <div>
+          <span class="section-kicker" data-i18n="docsPage.kicker">Documentation</span>
+          <h1>
+            <span data-i18n="docsPage.titleA">Laravel DDD Toolkit</span><br />
+            <em data-i18n="docsPage.titleB">field guide.</em>
+          </h1>
+          <p data-i18n="docsPage.subtitle">
+            A practical guide for Laravel developers: what each generated folder means, when a concept is useful,
+            which Artisan command creates it, and how it compares with familiar Laravel patterns.
+          </p>
+        </div>
+        <div class="doc-hero-badges">
+          <span data-i18n="docsPage.badge1">Vertical modules</span>
+          <span data-i18n="docsPage.badge2">Hexagonal by default</span>
+          <span data-i18n="docsPage.badge3">Pragmatic tactical DDD</span>
+        </div>
+      </section>
+
+      <section class="doc-page section-shell">
+        <aside class="doc-sidebar" aria-label="Documentation navigation">
+          <a href="#overview" data-i18n="docsNav.overview"></a>
+          <a href="#install" data-i18n="docsNav.install"></a>
+          <a href="#structure" data-i18n="docsNav.structure"></a>
+          <a href="#shared" data-i18n="docsNav.shared"></a>
+          <a href="#module" data-i18n="docsNav.module"></a>
+          <a href="#module-ai-docs" data-i18n="docsNav.moduleAiDocs"></a>
+          <a href="#entity" data-i18n="docsNav.entity"></a>
+          <a href="#value-object" data-i18n="docsNav.valueObject"></a>
+          <a href="#event" data-i18n="docsNav.event"></a>
+          <a href="#exception" data-i18n="docsNav.exception"></a>
+          <a href="#usecase" data-i18n="docsNav.usecase"></a>
+          <a href="#dto" data-i18n="docsNav.dto"></a>
+          <a href="#port-in" data-i18n="docsNav.portIn"></a>
+          <a href="#port-out" data-i18n="docsNav.portOut"></a>
+          <a href="#controller" data-i18n="docsNav.controller"></a>
+          <a href="#request" data-i18n="docsNav.request"></a>
+          <a href="#model" data-i18n="docsNav.model"></a>
+          <a href="#adapter" data-i18n="docsNav.adapter"></a>
+          <a href="#mapper" data-i18n="docsNav.mapper"></a>
+          <a href="#integration" data-i18n="docsNav.integration"></a>
+          <a href="#provider" data-i18n="docsNav.provider"></a>
+          <a href="#repository" data-i18n="docsNav.repository"></a>
+          <a href="#daily-cases" data-i18n="docsNav.dailyCases"></a>
+          <a href="#philosophy" data-i18n="docsNav.philosophy"></a>
+          <a href="#checks" data-i18n="docsNav.checks"></a>
+        </aside>
+
+        <div class="doc-content">
+          <section class="doc-section-card" id="overview">
+            <h2 data-i18n="doc.overview.title">Mental model</h2>
+            <p data-i18n="doc.overview.text"></p>
+            <p class="doc-callout" data-i18n="doc.overview.callout"></p>
+            <div class="doc-compare-grid">
+              <div>
+                <strong data-i18n="doc.compare.normalTitle">Laravel you already know</strong>
+                <pre><code>Controller
+→ Service
+→ Repository
+→ Eloquent Model</code></pre>
+              </div>
+              <div>
+                <strong data-i18n="doc.compare.dddTitle">With this toolkit</strong>
+                <pre><code>Controller
+→ Application Use Case
+→ Domain behavior
+→ Port
+→ Infrastructure Adapter</code></pre>
+              </div>
+            </div>
+          </section>
+
+          <section class="doc-section-card" id="install">
+            <h2 data-i18n="doc.install.title">Installation</h2>
+            <p data-i18n="doc.install.text"></p>
+            <pre><code>composer require samuel-nunes/laravel-ddd-toolkit
+php artisan ddd:install</code></pre>
+            <p class="doc-note" data-i18n="doc.install.note"></p>
+          </section>
+
+          <section class="doc-section-card" id="structure">
+            <h2 data-i18n="doc.structure.title">Default generated module structure</h2>
+            <p data-i18n="doc.structure.text"></p>
+            <pre><code>app/Modules/Order/
+├── Domain/
+│   ├── Entities/
+│   ├── ValueObjects/
+│   ├── Events/
+│   └── Exceptions/
+├── Application/
+│   ├── UseCases/
+│   ├── DTO/
+│   └── Ports/
+│       ├── In/
+│       └── Out/
+└── Infrastructure/
+    ├── Http/
+    │   ├── Controllers/
+    │   ├── Requests/
+    │   └── routes.php
+    ├── Persistence/
+    │   ├── Models/
+    │   └── Adapters/
+    ├── Integrations/
+    └── Providers/
+
+app/Shared/
+├── Domain/
+├── Application/
+└── Infrastructure/</code></pre>
+          </section>
+
+          <section class="doc-section-card" id="shared">
+            <h2 data-i18n="doc.shared.title">Shared folder</h2>
+            <p data-i18n="doc.shared.what"></p>
+            <p class="doc-note" data-i18n="doc.shared.warning"></p>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.path">Path</strong><pre><code>app/Shared/
+├── Domain/
+├── Application/
+└── Infrastructure/</code></pre></div>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.example">Example use</strong><pre><code>app/Shared/Domain/ValueObjects/Email.php
+app/Shared/Domain/ValueObjects/Cpf.php
+app/Shared/Application/Clock/SystemClock.php
+app/Shared/Infrastructure/Support/UuidGenerator.php</code></pre></div>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.whenUse">When should I use it?</strong><p data-i18n="doc.shared.when"></p></div>
+          </section>
+
+          <section class="doc-section-card" id="module">
+            <h2 data-i18n="doc.module.title">Module</h2>
+            <p data-i18n="doc.module.text"></p>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.path">Path</strong><pre><code>app/Modules/Billing/</code></pre></div>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.command">Generate with</strong><pre><code>php artisan make:module Billing</code></pre></div>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.whenUse">Why use it?</strong><p data-i18n="doc.module.why"></p></div>
+          </section>
+
+          <section class="doc-section-card" id="module-ai-docs">
+            <h2 data-i18n="doc.moduleAiDocs.title">README.md and AGENTS.md per module</h2>
+            <p data-i18n="doc.moduleAiDocs.what"></p>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.command">Generate with</strong><pre><code>php artisan make:module Billing
+php artisan make:module Billing --context="Handles invoice issuing, cancellation and invoice queries."
+php artisan make:module Billing --context-file=docs/billing-context.md
+php artisan make:module Billing --no-ai-docs</code></pre></div>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.output">Generated files</strong><pre><code>app/Modules/Billing/README.md
+app/Modules/Billing/AGENTS.md</code></pre></div>
+            <p class="doc-note" data-i18n="doc.moduleAiDocs.note"></p>
+          </section>
+
+          <section class="doc-section-card" id="entity">
+            <h2 data-i18n="doc.entity.title">Domain Entity</h2>
+            <p data-i18n="doc.entity.what"></p>
+            <p class="doc-note" data-i18n="doc.entity.when"></p>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.path">Path</strong><pre><code>app/Modules/Billing/Domain/Entities/Invoice.php</code></pre></div>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.command">Generate with</strong><pre><code># Billing = module
+# Invoice = entity/resource name
+php artisan make:entity Billing Invoice</code></pre></div>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.example">Example implementation</strong><pre><code>&lt;?php
+
+namespace App\Modules\Billing\Domain\Entities;
+
+use App\Modules\Billing\Domain\Events\InvoiceIssued;
+use App\Modules\Billing\Domain\Exceptions\InvoiceCannotBeIssued;
+use App\Modules\Billing\Domain\ValueObjects\Money;
+
+final class Invoice
+{
+    private array $items = [];
+    private array $events = [];
+
+    private function __construct(
+        private readonly string $id,
+        private Money $total,
+        private InvoiceStatus $status,
+    ) {}
+
+    public static function draft(string $id): self
+    {
+        return new self($id, new Money(0, 'BRL'), InvoiceStatus::draft());
+    }
+
+    public function addItems(array $items): void
+    {
+        foreach ($items as $item) {
+            $this-&gt;addItem($item);
+        }
+    }
+
+    private function addItem(InvoiceItem $item): void
+    {
+        if (! $this-&gt;status-&gt;isDraft()) {
+            throw InvoiceCannotBeIssued::becauseItIsNotDraft($this-&gt;id);
+        }
+
+        $this-&gt;items[] = $item;
+        $this-&gt;total = $this-&gt;total-&gt;add($item-&gt;subtotal());
+    }
+
+    public function issue(): void
+    {
+        if ($this-&gt;items === []) {
+            throw InvoiceCannotBeIssued::withoutItems($this-&gt;id);
+        }
+
+        $this-&gt;status = InvoiceStatus::issued();
+        $this-&gt;events[] = new InvoiceIssued($this-&gt;id, (new \DateTimeImmutable())-&gt;format(DATE_ATOM));
+    }
+
+    public function pullDomainEvents(): array
+    {
+        $events = $this-&gt;events;
+        $this-&gt;events = [];
+
+        return $events;
+    }
+}</code></pre></div>
+            <p class="doc-note" data-i18n="doc.entity.addItemsNote"></p>
+          </section>
+
+          <section class="doc-section-card" id="value-object">
+            <h2 data-i18n="doc.valueObject.title">Value Object</h2>
+            <p data-i18n="doc.valueObject.what"></p>
+            <p class="doc-note" data-i18n="doc.valueObject.when"></p>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.path">Path</strong><pre><code>app/Modules/Billing/Domain/ValueObjects/Money.php</code></pre></div>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.command">Generate with</strong><pre><code># Billing = module
+# Money = value object/resource name
+php artisan make:value-object Billing Money</code></pre></div>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.example">Example implementation</strong><pre><code>&lt;?php
+
+namespace App\Modules\Billing\Domain\ValueObjects;
+
+use InvalidArgumentException;
+
+final readonly class Money
+{
+    public function __construct(
+        public int $amountInCents,
+        public string $currency = 'BRL',
+    ) {
+        if ($amountInCents &lt; 0) {
+            throw new InvalidArgumentException('Money amount cannot be negative.');
+        }
+    }
+
+    public function add(self $other): self
+    {
+        if ($this-&gt;currency !== $other-&gt;currency) {
+            throw new InvalidArgumentException('Cannot add different currencies.');
+        }
+
+        return new self($this-&gt;amountInCents + $other-&gt;amountInCents, $this-&gt;currency);
+    }
+}</code></pre></div>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.usage">How to use it</strong><pre><code>$lineTotal = new Money(12990, 'BRL');
+$shipping = new Money(1500, 'BRL');
+
+$total = $lineTotal-&gt;add($shipping);
+
+$invoice-&gt;addItem(new InvoiceItem(
+    description: 'Laravel DDD Toolkit license',
+    subtotal: $total,
+));</code></pre></div>
+            <p data-i18n="doc.valueObject.usage"></p>
+          </section>
+
+          <section class="doc-section-card" id="event">
+            <h2 data-i18n="doc.event.title">Domain Event</h2>
+            <p data-i18n="doc.event.what"></p>
+            <p class="doc-note" data-i18n="doc.event.observerNote"></p>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.command">Generate with</strong><pre><code># Billing = module
+# InvoiceIssued = domain event/resource name
+php artisan make:event Billing InvoiceIssued</code></pre></div>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.example">Event object</strong><pre><code>&lt;?php
+
+namespace App\Modules\Billing\Domain\Events;
+
+final readonly class InvoiceIssued
+{
+    public function __construct(
+        public string $invoiceId,
+        public string $issuedAt,
+    ) {}
+}</code></pre></div>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.usage">How to use it</strong><pre><code>// Domain/Entities/Invoice.php
+public function issue(): void
+{
+    if ($this-&gt;items === []) {
+        throw InvoiceCannotBeIssued::withoutItems($this-&gt;id);
+    }
+
+    $this-&gt;status = InvoiceStatus::issued();
+    $this-&gt;events[] = new InvoiceIssued($this-&gt;id, (new \DateTimeImmutable())-&gt;format(DATE_ATOM));
+}
+
+public function pullDomainEvents(): array
+{
+    $events = $this-&gt;events;
+    $this-&gt;events = [];
+
+    return $events;
+}</code></pre></div>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.example">Dispatch from the use case</strong><pre><code>// Application/UseCases/IssueInvoice/IssueInvoiceHandler.php
+public function handle(IssueInvoiceData $data): Invoice
+{
+    $invoice = Invoice::draft($data-&gt;customerId);
+    $invoice-&gt;addItems($data-&gt;items);
+    $invoice-&gt;issue();
+
+    $this-&gt;invoices-&gt;save($invoice);
+
+    foreach ($invoice-&gt;pullDomainEvents() as $event) {
+        event($event); // Laravel event dispatcher at the application edge
+    }
+
+    return $invoice;
+}</code></pre></div>
+          </section>
+
+          <section class="doc-section-card" id="exception">
+            <h2 data-i18n="doc.exception.title">Domain Exception</h2>
+            <p data-i18n="doc.exception.what"></p>
+            <p class="doc-note" data-i18n="doc.exception.when"></p>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.path">Path</strong><pre><code>app/Modules/Billing/Domain/Exceptions/InvoiceCannotBeIssued.php</code></pre></div>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.example">Example implementation</strong><pre><code>&lt;?php
+
+namespace App\Modules\Billing\Domain\Exceptions;
+
+use DomainException;
+
+final class InvoiceCannotBeIssued extends DomainException
+{
+    public static function withoutItems(string $invoiceId): self
+    {
+        return new self("Invoice {$invoiceId} cannot be issued without items.");
+    }
+
+    public static function becauseItIsNotDraft(string $invoiceId): self
+    {
+        return new self("Invoice {$invoiceId} cannot be changed after leaving draft status.");
+    }
+}</code></pre></div>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.usage">How to use it</strong><pre><code>// Domain/Entities/Invoice.php
+public function issue(): void
+{
+    if ($this-&gt;items === []) {
+        throw InvoiceCannotBeIssued::withoutItems($this-&gt;id);
+    }
+
+    $this-&gt;status = InvoiceStatus::issued();
+}
+
+// Infrastructure/Http/Controllers/IssueInvoiceController.php
+try {
+    $invoice = $useCase-&gt;handle($data);
+} catch (InvoiceCannotBeIssued $exception) {
+    abort(422, $exception-&gt;getMessage());
+}</code></pre></div>
+          </section>
+
+          <section class="doc-section-card" id="usecase">
+            <h2 data-i18n="doc.usecase.title">Application Use Case</h2>
+            <p data-i18n="doc.usecase.what"></p>
+            <p class="doc-note" data-i18n="doc.usecase.tip"></p>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.command">Generate with</strong><pre><code># Billing = module
+# IssueInvoice = use case/resource name
+php artisan make:usecase Billing IssueInvoice</code></pre></div>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.example">Example implementation</strong><pre><code>&lt;?php
+
+namespace App\Modules\Billing\Application\UseCases\IssueInvoice;
+
+use App\Modules\Billing\Application\DTO\IssueInvoiceData;
+use App\Modules\Billing\Application\Ports\In\IssueInvoiceUseCase;
+use App\Modules\Billing\Application\Ports\Out\InvoiceRepository;
+use App\Modules\Billing\Domain\Entities\Invoice;
+
+final readonly class IssueInvoiceHandler implements IssueInvoiceUseCase
+{
+    public function __construct(private InvoiceRepository $invoices) {}
+
+    public function handle(IssueInvoiceData $data): Invoice
+    {
+        $invoice = Invoice::draft($data-&gt;customerId);
+
+        $invoice-&gt;addItems($data-&gt;items);
+        $invoice-&gt;issue();
+        $this-&gt;invoices-&gt;save($invoice);
+
+        return $invoice;
+    }
+}</code></pre></div>
+          </section>
+
+          <section class="doc-section-card" id="dto">
+            <h2 data-i18n="doc.dto.title">Application DTO</h2>
+            <p data-i18n="doc.dto.what"></p>
+            <p class="doc-note" data-i18n="doc.dto.resourceNote"></p>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.path">Path</strong><pre><code>app/Modules/Billing/Application/DTO/IssueInvoiceData.php</code></pre></div>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.example">Example implementation</strong><pre><code>&lt;?php
+
+namespace App\Modules\Billing\Application\DTO;
+
+final readonly class IssueInvoiceData
+{
+    public function __construct(
+        public string $customerId,
+        public array $items,
+    ) {}
+}</code></pre></div>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.usage">How it differs from Resource</strong><pre><code>public function __invoke(IssueInvoiceRequest $request, IssueInvoiceUseCase $useCase): InvoiceResource
+{
+    $invoice = $useCase-&gt;handle(new IssueInvoiceData(
+        customerId: $request-&gt;string('customer_id')-&gt;toString(),
+        items: InvoiceItemInputMapper::fromRequest($request),
+    ));
+
+    return new InvoiceResource($invoice);
+}</code></pre></div>
+          </section>
+
+          <section class="doc-section-card" id="port-in">
+            <h2 data-i18n="doc.portIn.title">Application Port In</h2>
+            <p data-i18n="doc.portIn.what"></p>
+            <p class="doc-note" data-i18n="doc.portIn.why"></p>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.command">Generate with</strong><pre><code># Billing = module
+# IssueInvoiceUseCase = inbound port/resource name
+php artisan make:port Billing IssueInvoiceUseCase --type=in</code></pre></div>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.example">Interface</strong><pre><code>&lt;?php
+
+namespace App\Modules\Billing\Application\Ports\In;
+
+use App\Modules\Billing\Application\DTO\IssueInvoiceData;
+use App\Modules\Billing\Domain\Entities\Invoice;
+
+interface IssueInvoiceUseCase
+{
+    public function handle(IssueInvoiceData $data): Invoice;
+}</code></pre></div>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.usage">Service container usage</strong><pre><code>// Infrastructure/Providers/BillingServiceProvider.php
+$this-&gt;app-&gt;bind(
+    IssueInvoiceUseCase::class,
+    IssueInvoiceHandler::class,
+);
+
+// Infrastructure/Http/Controllers/IssueInvoiceController.php
+public function __invoke(IssueInvoiceRequest $request, IssueInvoiceUseCase $useCase): InvoiceResource
+{
+    return new InvoiceResource($useCase-&gt;handle(
+        IssueInvoiceData::fromRequest($request)
+    ));
+}</code></pre></div>
+          </section>
+
+          <section class="doc-section-card" id="port-out">
+            <h2 data-i18n="doc.portOut.title">Application Port Out</h2>
+            <p data-i18n="doc.portOut.what"></p>
+            <p class="doc-note" data-i18n="doc.portOut.note"></p>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.command">Generate with</strong><pre><code># Billing = module
+# InvoiceRepository = outbound port/resource name
+php artisan make:port Billing InvoiceRepository --type=out</code></pre></div>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.example">Interface</strong><pre><code>&lt;?php
+
+namespace App\Modules\Billing\Application\Ports\Out;
+
+use App\Modules\Billing\Domain\Entities\Invoice;
+
+interface InvoiceRepository
+{
+    public function findById(string $id): ?Invoice;
+    public function save(Invoice $invoice): void;
+}</code></pre></div>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.usage">Why it is useful</strong><pre><code>final readonly class IssueInvoiceHandler
+{
+    public function __construct(private InvoiceRepository $invoices) {}
+
+    public function handle(IssueInvoiceData $data): Invoice
+    {
+        // The use case does not know if persistence is Eloquent, API, cache, legacy DB or tests.
+        $invoice = Invoice::draft($data-&gt;customerId);
+        $invoice-&gt;issue();
+
+        $this-&gt;invoices-&gt;save($invoice);
+
+        return $invoice;
+    }
+}</code></pre></div>
+          
+            <div class="doc-mini-block"><strong data-i18n="doc.portOut.eloquentTitle">Can I just use Eloquent directly?</strong><pre><code>// For simple CRUD, yes. The toolkit does not force repositories.
+// This is fine when there is no rich domain behavior to protect:
+InvoiceModel::query()-&gt;create($request-&gt;validated());
+
+// But inside a hexagonal Application use case, prefer a Port Out:
+// - the use case does not import Eloquent;
+// - tests can bind an in-memory implementation;
+// - persistence mapping stays in Infrastructure.</code></pre></div></section>
+
+          <section class="doc-section-card" id="controller">
+            <h2 data-i18n="doc.controller.title">Infrastructure HTTP Controller</h2>
+            <p data-i18n="doc.controller.what"></p>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.example">Example implementation</strong><pre><code>&lt;?php
+
+namespace App\Modules\Billing\Infrastructure\Http\Controllers;
+
+use App\Modules\Billing\Application\DTO\IssueInvoiceData;
+use App\Modules\Billing\Application\Ports\In\IssueInvoiceUseCase;
+use App\Modules\Billing\Infrastructure\Http\Requests\IssueInvoiceRequest;
+use App\Modules\Billing\Infrastructure\Http\Resources\InvoiceResource;
+
+final class IssueInvoiceController
+{
+    public function __invoke(IssueInvoiceRequest $request, IssueInvoiceUseCase $useCase): InvoiceResource
+    {
+        return new InvoiceResource($useCase-&gt;handle(
+            IssueInvoiceData::fromRequest($request)
+        ));
+    }
+}</code></pre></div>
+          </section>
+
+          <section class="doc-section-card" id="request">
+            <h2 data-i18n="doc.request.title">Infrastructure HTTP Request</h2>
+            <p data-i18n="doc.request.what"></p>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.example">Example implementation</strong><pre><code>&lt;?php
+
+namespace App\Modules\Billing\Infrastructure\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+final class IssueInvoiceRequest extends FormRequest
+{
+    public function rules(): array
+    {
+        return [
+            'customer_id' =&gt; ['required', 'string'],
+            'items' =&gt; ['required', 'array', 'min:1'],
+        ];
+    }
+}</code></pre></div>
+          </section>
+
+          <section class="doc-section-card" id="model">
+            <h2 data-i18n="doc.model.title">Infrastructure Eloquent Model</h2>
+            <p data-i18n="doc.model.what"></p>
+            <p class="doc-note" data-i18n="doc.model.castNote"></p>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.example">Example implementation</strong><pre><code>&lt;?php
+
+namespace App\Modules\Billing\Infrastructure\Persistence\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+final class InvoiceModel extends Model
+{
+    protected $table = 'invoices';
+
+    protected $casts = [
+        'total_amount' =&gt; 'integer',
+        'issued_at' =&gt; 'datetime',
+    ];
+}</code></pre></div>
+          </section>
+
+          <section class="doc-section-card" id="adapter">
+            <h2 data-i18n="doc.adapter.title">Infrastructure Adapter</h2>
+            <p data-i18n="doc.adapter.what"></p>
+            <p class="doc-note" data-i18n="doc.adapter.castAnswer"></p>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.command">Generate with</strong><pre><code># Billing = module
+# EloquentInvoiceRepository = adapter/resource name
+# --port=InvoiceRepository = port implemented by the adapter
+php artisan make:adapter Billing EloquentInvoiceRepository --port=InvoiceRepository --type=persistence</code></pre></div>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.example">Example implementation</strong><pre><code>&lt;?php
+
+namespace App\Modules\Billing\Infrastructure\Persistence\Adapters;
+
+use App\Modules\Billing\Application\Ports\Out\InvoiceRepository;
+use App\Modules\Billing\Domain\Entities\Invoice;
+use App\Modules\Billing\Infrastructure\Persistence\Models\InvoiceModel;
+use App\Modules\Billing\Infrastructure\Persistence\Mappers\InvoiceMapper;
+
+final class EloquentInvoiceRepository implements InvoiceRepository
+{
+    public function findById(string $id): ?Invoice
+    {
+        $model = InvoiceModel::query()-&gt;find($id);
+
+        return $model ? InvoiceMapper::toDomain($model) : null;
+    }
+
+    public function save(Invoice $invoice): void
+    {
+        InvoiceModel::query()-&gt;updateOrCreate(
+            ['id' =&gt; $invoice-&gt;id()],
+            InvoiceMapper::toPersistence($invoice),
+        );
+    }
+}</code></pre></div>
+          </section>
+
+          <section class="doc-section-card" id="mapper">
+            <h2 data-i18n="doc.mapper.title">Persistence Mapper</h2>
+            <p data-i18n="doc.mapper.what"></p>
+            <p class="doc-note" data-i18n="doc.mapper.note"></p>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.path">Path</strong><pre><code>app/Modules/Billing/Infrastructure/Persistence/Mappers/InvoiceMapper.php</code></pre></div>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.example">Example implementation</strong><pre><code>&lt;?php
+
+namespace App\Modules\Billing\Infrastructure\Persistence\Mappers;
+
+use App\Modules\Billing\Domain\Entities\Invoice;
+use App\Modules\Billing\Domain\Entities\InvoiceStatus;
+use App\Modules\Billing\Domain\ValueObjects\Money;
+use App\Modules\Billing\Infrastructure\Persistence\Models\InvoiceModel;
+
+final class InvoiceMapper
+{
+    public static function toDomain(InvoiceModel $model): Invoice
+    {
+        return Invoice::restore(
+            id: (string) $model-&gt;id,
+            total: new Money((int) $model-&gt;total_amount, $model-&gt;currency),
+            status: InvoiceStatus::from($model-&gt;status),
+            items: InvoiceItemMapper::collectionToDomain($model-&gt;items),
+        );
+    }
+
+    public static function toPersistence(Invoice $invoice): array
+    {
+        return [
+            'id' =&gt; $invoice-&gt;id(),
+            'total_amount' =&gt; $invoice-&gt;total()-&gt;amountInCents,
+            'currency' =&gt; $invoice-&gt;total()-&gt;currency,
+            'status' =&gt; $invoice-&gt;status()-&gt;value,
+        ];
+    }
+}</code></pre></div>
+          </section>
+
+          <section class="doc-section-card" id="integration">
+            <h2 data-i18n="doc.integration.title">Infrastructure Integration</h2>
+            <p data-i18n="doc.integration.what"></p>
+            <p class="doc-note" data-i18n="doc.integration.args"></p>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.command">Generate with</strong><pre><code># Payment = module
+# Stripe = integration/resource name
+php artisan make:integration Payment Stripe</code></pre></div>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.output">Generated files</strong><pre><code>app/Modules/Payment/Infrastructure/Integrations/Stripe/
+├── DTO/
+├── Exceptions/
+├── StripeClient.php
+├── StripeAdapter.php
+└── StripeMapper.php</code></pre></div>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.example">Example use</strong><pre><code>// Payment = module
+// Stripe = integration name
+
+$this-&gt;app-&gt;bind(
+    PaymentGateway::class,
+    StripeAdapter::class,
+);</code></pre></div>
+          </section>
+
+          <section class="doc-section-card" id="provider">
+            <h2 data-i18n="doc.provider.title">Infrastructure Provider</h2>
+            <p data-i18n="doc.provider.what"></p>
+            <p class="doc-note" data-i18n="doc.provider.noRepository"></p>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.path">Path</strong><pre><code>app/Modules/Billing/Infrastructure/Providers/BillingServiceProvider.php</code></pre></div>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.example">Example implementation</strong><pre><code>&lt;?php
+
+namespace App\Modules\Billing\Infrastructure\Providers;
+
+use App\Modules\Billing\Application\Ports\In\IssueInvoiceUseCase;
+use App\Modules\Billing\Application\Ports\Out\InvoiceRepository;
+use App\Modules\Billing\Application\UseCases\IssueInvoice\IssueInvoiceHandler;
+use App\Modules\Billing\Infrastructure\Persistence\Adapters\EloquentInvoiceRepository;
+use Illuminate\Support\ServiceProvider;
+
+final class BillingServiceProvider extends ServiceProvider
+{
+    public function register(): void
+    {
+        $this-&gt;app-&gt;bind(IssueInvoiceUseCase::class, IssueInvoiceHandler::class);
+        $this-&gt;app-&gt;bind(InvoiceRepository::class, EloquentInvoiceRepository::class);
+
+        // It can also bind external gateways, clients, mappers, config-driven services,
+        // or module-specific implementations that should stay close to Billing.
+    }
+}</code></pre></div>
+          
+            <div class="doc-mini-block"><strong data-i18n="doc.block.usage">Without a repository</strong><pre><code>public function register(): void
+{
+    // Inbound port to use case handler.
+    $this-&gt;app-&gt;bind(IssueInvoiceUseCase::class, IssueInvoiceHandler::class);
+
+    // External service port to integration adapter.
+    $this-&gt;app-&gt;bind(FiscalGateway::class, SefazFiscalGateway::class);
+
+    // A configured client that belongs only to this module.
+    $this-&gt;app-&gt;singleton(SefazClient::class, fn () =&gt; new SefazClient(
+        baseUrl: config('services.sefaz.url'),
+        token: config('services.sefaz.token'),
+    ));
+}</code></pre></div>
+</section>
+
+          <section class="doc-section-card" id="repository">
+            <h2 data-i18n="doc.repository.title">Repository</h2>
+            <p data-i18n="doc.repository.what"></p>
+            <p class="doc-note" data-i18n="doc.repository.args"></p>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.command">Generate with</strong><pre><code># Billing = module
+# InvoiceRepository = repository/resource name
+# --force = generate even when repositories are disabled by default
+php artisan make:repository Billing InvoiceRepository --force</code></pre></div>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.path">Path</strong><pre><code>app/Modules/Billing/Infrastructure/Persistence/Repositories/InvoiceRepository.php</code></pre></div>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.whenUse">When it makes sense</strong><pre><code>// Good reasons for a repository:
+// - complex read/write persistence hidden from the use case
+// - legacy database tables
+// - stored procedures
+// - persistence that mixes SQL + cache
+// - reports or read models with long query composition
+// - a future swap from Eloquent to another storage mechanism
+
+// Weak reason:
+// - creating find(), create(), update() wrappers for every Eloquent model</code></pre></div>
+          </section>
+
+                    <section class="doc-section-card" id="daily-cases">
+            <h2 data-i18n="doc.daily.title">Day-to-day cases</h2>
+            <p data-i18n="doc.daily.what"></p>
+            <div class="doc-case-grid">
+              <article><strong data-i18n="doc.daily.simple.title"></strong><p data-i18n="doc.daily.simple.text"></p><pre><code>// Keep it simple
+InvoiceModel::query()-&gt;create($request-&gt;validated());</code></pre></article>
+              <article><strong data-i18n="doc.daily.rule.title"></strong><p data-i18n="doc.daily.rule.text"></p><pre><code>$invoice = Invoice::draft($customerId);
+$invoice-&gt;addItems($items);
+$invoice-&gt;issue();</code></pre></article>
+              <article><strong data-i18n="doc.daily.external.title"></strong><p data-i18n="doc.daily.external.text"></p><pre><code>interface FiscalGateway
+{
+    public function authorize(Invoice $invoice): FiscalAuthorization;
+}</code></pre></article>
+              <article><strong data-i18n="doc.daily.multipleEntry.title"></strong><p data-i18n="doc.daily.multipleEntry.text"></p><pre><code>IssueInvoiceController → IssueInvoiceUseCase
+IssueInvoiceJob        → IssueInvoiceUseCase</code></pre></article>
+              <article><strong data-i18n="doc.daily.response.title"></strong><p data-i18n="doc.daily.response.text"></p><pre><code>// Input to the use case: DTO
+// Output to HTTP clients: Laravel Resource</code></pre></article>
+              <article><strong data-i18n="doc.daily.persistence.title"></strong><p data-i18n="doc.daily.persistence.text"></p><pre><code>UseCase → InvoiceRepository port
+Adapter → Eloquent + InvoiceMapper</code></pre></article>
+            </div>
+          </section>
+
+          <section class="doc-section-card" id="philosophy">
+            <h2 data-i18n="doc.philosophy.title">Philosophy and software practices</h2>
+            <p data-i18n="doc.philosophy.what"></p>
+            <p class="doc-callout" data-i18n="doc.philosophy.callout"></p>
+            <div class="doc-principles">
+              <p data-i18n="doc.philosophy.p1"></p>
+              <p data-i18n="doc.philosophy.p2"></p>
+              <p data-i18n="doc.philosophy.p3"></p>
+              <p data-i18n="doc.philosophy.p4"></p>
+            </div>
+          </section>
+
+<section class="doc-section-card" id="checks">
+            <h2 data-i18n="doc.checks.title">Architecture checks and discovery cache</h2>
+            <p data-i18n="doc.checks.what"></p>
+            <div class="doc-mini-block"><strong data-i18n="doc.block.command">Run</strong><pre><code>php artisan ddd:check
+php artisan ddd:check --module=Billing
+php artisan ddd:cache
+php artisan ddd:clear</code></pre></div>
+          </section>
+
+          <section class="doc-section-card doc-next-card">
+            <h2 data-i18n="doc.next.title">How to read this documentation</h2>
+            <p data-i18n="doc.next.text"></p>
+            <a class="primary-button" href="./index.html#learn">
+              <span data-i18n="nav.learn">For Laravel Developers</span>
+              <span>→</span>
+            </a>
+          </section>
+        </div>
+      </section>
+
+      <footer>
+        <a class="brand" href="./index.html#home"><span class="brand-mark">L/</span><span>Laravel DDD</span></a>
+        <p data-i18n="footer">Explicit architecture for Laravel applications that need to keep evolving.</p>
+        <div class="footer-credit" aria-label="Project credits">
+          <span data-i18n="footer.creditPrefix">Crafted by</span>
+          <a class="social-link" href="https://www.linkedin.com/in/samuel-nunes-de-souza/" target="_blank" rel="noreferrer" aria-label="Samuel Nunes on LinkedIn">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5ZM.34 8.1h4.32V23H.34V8.1ZM7.55 8.1h4.14v2.04h.06c.58-1.1 1.99-2.26 4.09-2.26C20.2 7.88 21 10.75 21 14.48V23h-4.32v-7.56c0-1.8-.03-4.12-2.51-4.12-2.51 0-2.9 1.96-2.9 3.99V23H7.55V8.1Z"/></svg>
+            <span>Samuel Nunes</span>
+          </a>
+          <span class="credit-separator">·</span>
+          <a class="social-link" href="https://github.com/SamuelNunesDev" target="_blank" rel="noreferrer" aria-label="Samuel Nunes on GitHub">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 .5A11.5 11.5 0 0 0 8.36 22.9c.58.11.79-.25.79-.56v-2.02c-3.2.7-3.87-1.38-3.87-1.38-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.73 1.27 3.4.97.1-.76.41-1.27.74-1.56-2.55-.29-5.23-1.27-5.23-5.66 0-1.25.45-2.27 1.19-3.07-.12-.29-.52-1.46.11-3.03 0 0 .97-.31 3.17 1.17A10.95 10.95 0 0 1 12 6.17c.98 0 1.96.13 2.88.38 2.2-1.48 3.17-1.17 3.17-1.17.63 1.57.23 2.74.11 3.03.74.8 1.19 1.82 1.19 3.07 0 4.4-2.69 5.37-5.25 5.65.42.36.79 1.07.79 2.16v3.05c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>
+            <span data-i18n="footer.github">GitHub</span>
+          </a>
+          <span class="credit-separator">·</span>
+          <span>Open source · 2026</span>
+        </div>
+      </footer>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

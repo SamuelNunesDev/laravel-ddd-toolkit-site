@@ -19,8 +19,9 @@
         </a>
 
         <nav aria-label="Main navigation">
+          <a href="#learn" data-i18n="nav.learn">For Laravel Developers</a>
           <a href="#architecture" data-i18n="nav.architecture">Architecture</a>
-          <a href="#docs" data-i18n="nav.docs">Docs</a>
+          <a href="./docs.html" data-i18n="nav.docs">Docs</a>
           <a href="#contribute" data-i18n="nav.contribute">Contribute</a>
         </nav>
 
@@ -56,11 +57,11 @@
           </p>
 
           <div class="hero-actions">
-            <a class="primary-button" href="#docs">
+            <a class="primary-button" href="./docs.html">
               <span data-i18n="hero.primary">Start now</span>
               <span>→</span>
             </a>
-            <a class="text-button" href="#architecture">
+            <a class="text-button" href="#learn">
               <span class="play">▶</span>
               <span data-i18n="hero.secondary">Understand the fit</span>
             </a>
@@ -126,10 +127,157 @@
         </div>
       </section>
 
+
+      <section class="learn section-shell" id="learn">
+        <div class="section-heading learn-heading">
+          <div>
+            <span class="section-kicker" data-i18n="learn.kicker">01 · Learn DDD</span>
+            <h2>
+              <span data-i18n="learn.titleA">DDD explained for</span><br />
+              <em data-i18n="learn.titleB">Laravel developers.</em>
+            </h2>
+          </div>
+          <p data-i18n="learn.text">
+            You do not need to abandon Controllers, Eloquent or Artisan. DDD helps you decide where business rules,
+            use cases and infrastructure details should live when the application stops being a simple CRUD.
+          </p>
+        </div>
+
+        <div class="learn-intro-panel">
+          <div class="learn-intro-copy">
+            <span class="section-kicker" data-i18n="learn.intro.kicker">Start here</span>
+            <h3 data-i18n="learn.intro.title">DDD is not about creating more folders.</h3>
+            <p data-i18n="learn.intro.text">
+              It is about making the business language visible in the code. Instead of organizing everything only by
+              technical type, you organize important parts of the system around business capabilities.
+            </p>
+          </div>
+
+          <div class="comparison-grid" aria-label="Laravel structure comparison">
+            <article>
+              <span data-i18n="learn.comparison.before.label">Common Laravel structure</span>
+              <pre><code>app/
+├── Http/Controllers/
+├── Models/
+├── Services/
+└── Repositories/</code></pre>
+              <p data-i18n="learn.comparison.before.text">
+                Works well for simple CRUD, but business rules can spread across controllers, services, models, jobs and observers.
+              </p>
+            </article>
+            <article>
+              <span data-i18n="learn.comparison.after.label">Module-oriented structure</span>
+              <pre><code>app/Modules/Billing/
+├── Domain/
+├── Application/
+└── Infrastructure/</code></pre>
+              <p data-i18n="learn.comparison.after.text">
+                Keeps one business capability together and makes the responsibility of each layer explicit.
+              </p>
+            </article>
+          </div>
+        </div>
+
+        <div class="concept-grid">
+          <article class="concept-card">
+            <span>01</span>
+            <h3 data-i18n="learn.concepts.module.title">Module</h3>
+            <p data-i18n="learn.concepts.module.text">
+              A module represents a business capability, such as Billing, Orders, Inventory or Customers.
+            </p>
+            <small data-i18n="learn.concepts.module.note">Think business area, not just a folder.</small>
+          </article>
+          <article class="concept-card">
+            <span>02</span>
+            <h3 data-i18n="learn.concepts.domain.title">Domain</h3>
+            <p data-i18n="learn.concepts.domain.text">
+              Where entities, value objects and business rules live. This layer should not know about Laravel or Eloquent.
+            </p>
+            <small data-i18n="learn.concepts.domain.note">Example: an Invoice decides whether it can be issued.</small>
+          </article>
+          <article class="concept-card">
+            <span>03</span>
+            <h3 data-i18n="learn.concepts.application.title">Application</h3>
+            <p data-i18n="learn.concepts.application.text">
+              Where use cases coordinate the work: validate intention, call the domain, persist changes and return a result.
+            </p>
+            <small data-i18n="learn.concepts.application.note">Example: IssueInvoiceHandler.</small>
+          </article>
+          <article class="concept-card">
+            <span>04</span>
+            <h3 data-i18n="learn.concepts.infrastructure.title">Infrastructure</h3>
+            <p data-i18n="learn.concepts.infrastructure.text">
+              Where Laravel-specific details live: controllers, requests, Eloquent models, queues, integrations and adapters.
+            </p>
+            <small data-i18n="learn.concepts.infrastructure.note">Laravel stays here, at the edges.</small>
+          </article>
+        </div>
+
+        <div class="laravel-map">
+          <div>
+            <span class="section-kicker" data-i18n="learn.map.kicker">Laravel translation</span>
+            <h3 data-i18n="learn.map.title">Where does my usual Laravel code go?</h3>
+            <p data-i18n="learn.map.text">
+              The toolkit does not remove Laravel concepts. It gives each one a clearer architectural place.
+            </p>
+          </div>
+
+          <div class="map-table">
+            <div class="map-row map-head">
+              <span data-i18n="learn.map.head.usual">What you know</span>
+              <span data-i18n="learn.map.head.place">Where it fits</span>
+              <span data-i18n="learn.map.head.reason">Why</span>
+            </div>
+            <div class="map-row">
+              <code>Controller</code>
+              <span>Infrastructure/Http</span>
+              <p data-i18n="learn.map.controller">Receives HTTP input and calls a use case.</p>
+            </div>
+            <div class="map-row">
+              <code>Service</code>
+              <span>Application/UseCases</span>
+              <p data-i18n="learn.map.service">Becomes a specific use case instead of a generic service full of unrelated methods.</p>
+            </div>
+            <div class="map-row">
+              <code>Repository interface</code>
+              <span>Application/Ports/Out</span>
+              <p data-i18n="learn.map.repository">Represents what the application needs from persistence without depending on Eloquent.</p>
+            </div>
+            <div class="map-row">
+              <code>Eloquent Model</code>
+              <span>Infrastructure/Persistence</span>
+              <p data-i18n="learn.map.eloquent">Handles database details at the infrastructure edge.</p>
+            </div>
+            <div class="map-row">
+              <code>Business rule</code>
+              <span>Domain</span>
+              <p data-i18n="learn.map.rule">Rules that define valid business behavior should stay close to the domain model.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="decision-grid">
+          <article>
+            <h3 data-i18n="learn.whenUse.title">Use this toolkit when...</h3>
+            <p data-i18n="learn.whenUse.text">
+              The application has real business rules, multiple modules, long-term maintenance, integrations, or teams
+              that need a shared architectural language.
+            </p>
+          </article>
+          <article>
+            <h3 data-i18n="learn.whenNot.title">Do not force it when...</h3>
+            <p data-i18n="learn.whenNot.text">
+              You are building a tiny CRUD, a prototype, or a screen with no meaningful business behavior. Laravel's
+              default structure may be enough.
+            </p>
+          </article>
+        </div>
+      </section>
+
       <section class="architecture section-shell" id="architecture">
         <div class="section-heading">
           <div>
-            <span class="section-kicker" data-i18n="architecture.kicker">01 · Positioning</span>
+            <span class="section-kicker" data-i18n="architecture.kicker">02 · Architecture</span>
             <h2>
               <span data-i18n="architecture.titleA">A structure for</span><br />
               <em data-i18n="architecture.titleB">serious Laravel apps.</em>
@@ -223,7 +371,7 @@
       <section class="docs section-shell" id="docs">
         <div class="section-heading docs-heading">
           <div>
-            <span class="section-kicker" data-i18n="docs.kicker">02 · Getting started</span>
+            <span class="section-kicker" data-i18n="docs.kicker">03 · Getting started</span>
             <h2>
               <span data-i18n="docs.titleA">From Composer to your first</span><br />
               <em data-i18n="docs.titleB">domain boundary.</em>
@@ -342,7 +490,7 @@
 
       <section class="contribute section-shell" id="contribute">
         <div>
-          <span class="section-kicker" data-i18n="contribute.kicker">03 · Community</span>
+          <span class="section-kicker" data-i18n="contribute.kicker">04 · Community</span>
           <h2>
             <span data-i18n="contribute.titleA">Help mature the toolkit</span><br />
             <em data-i18n="contribute.titleB">with real Laravel pressure.</em>
@@ -353,7 +501,7 @@
           </p>
         </div>
         <div class="contribute-actions">
-          <a class="primary-button" href="#docs">
+          <a class="primary-button" href="./docs.html">
             <span data-i18n="contribute.docs">Explore the docs</span>
             <span>→</span>
           </a>
@@ -366,7 +514,20 @@
       <footer>
         <a class="brand" href="#home"><span class="brand-mark">L/</span><span>Laravel DDD</span></a>
         <p data-i18n="footer">Explicit architecture for Laravel applications that need to keep evolving.</p>
-        <span>Open source · 2026</span>
+        <div class="footer-credit" aria-label="Project credits">
+          <span data-i18n="footer.creditPrefix">Crafted by</span>
+          <a class="social-link" href="https://www.linkedin.com/in/samuel-nunes-de-souza/" target="_blank" rel="noreferrer" aria-label="Samuel Nunes on LinkedIn">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5ZM.34 8.1h4.32V23H.34V8.1ZM7.55 8.1h4.14v2.04h.06c.58-1.1 1.99-2.26 4.09-2.26C20.2 7.88 21 10.75 21 14.48V23h-4.32v-7.56c0-1.8-.03-4.12-2.51-4.12-2.51 0-2.9 1.96-2.9 3.99V23H7.55V8.1Z"/></svg>
+            <span>Samuel Nunes</span>
+          </a>
+          <span class="credit-separator">·</span>
+          <a class="social-link" href="https://github.com/SamuelNunesDev" target="_blank" rel="noreferrer" aria-label="Samuel Nunes on GitHub">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 .5A11.5 11.5 0 0 0 8.36 22.9c.58.11.79-.25.79-.56v-2.02c-3.2.7-3.87-1.38-3.87-1.38-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.73 1.27 3.4.97.1-.76.41-1.27.74-1.56-2.55-.29-5.23-1.27-5.23-5.66 0-1.25.45-2.27 1.19-3.07-.12-.29-.52-1.46.11-3.03 0 0 .97-.31 3.17 1.17A10.95 10.95 0 0 1 12 6.17c.98 0 1.96.13 2.88.38 2.2-1.48 3.17-1.17 3.17-1.17.63 1.57.23 2.74.11 3.03.74.8 1.19 1.82 1.19 3.07 0 4.4-2.69 5.37-5.25 5.65.42.36.79 1.07.79 2.16v3.05c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>
+            <span data-i18n="footer.github">GitHub</span>
+          </a>
+          <span class="credit-separator">·</span>
+          <span>Open source · 2026</span>
+        </div>
       </footer>
     </main>
 
